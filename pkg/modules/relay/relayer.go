@@ -3,6 +3,7 @@
 package relay
 
 import (
+	"fmt"
 	"math/big"
 	"time"
 
@@ -84,6 +85,7 @@ func (r *Relayer) SendUserOperation() modules.BatchHandlerFunc {
 			if err != nil {
 				return err
 			} else if revert != nil {
+				r.logger.Info(fmt.Sprintf("mark reverted op for removal, %s", revert.Reason))
 				ctx.MarkOpIndexForRemoval(revert.OpIndex)
 				estRev = append(estRev, revert.Reason)
 			} else {
