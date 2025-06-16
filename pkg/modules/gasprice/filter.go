@@ -32,7 +32,7 @@ func FilterUnderpriced() modules.BatchHandlerFunc {
 			}
 		}
 
-		ctx.Logger.Info(fmt.Sprintf("drop under priced ops: %v", underPriced)
+		ctx.Logger.Info(fmt.Sprintf("drop under priced ops: %v", underPriced))
 
 		ctx.Batch = b
 		return nil
