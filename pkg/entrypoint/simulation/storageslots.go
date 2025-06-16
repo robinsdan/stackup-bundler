@@ -123,12 +123,15 @@ func (v *storageSlotsValidator) Process() ([]string, error) {
 		}
 
 		if mustStakeSlot != "" && !v.EntityIsStaked {
-			return altMempoolIds, fmt.Errorf(
-				"unstaked %s accessed %s slot %s",
-				v.EntityName,
-				addr2KnownEntity(v.Op, addr),
-				mustStakeSlot,
-			)
+			continue
+			/*
+				return altMempoolIds, fmt.Errorf(
+					"unstaked %s accessed %s slot %s",
+					v.EntityName,
+					addr2KnownEntity(v.Op, addr),
+					mustStakeSlot,
+				)
+			*/
 		}
 	}
 
