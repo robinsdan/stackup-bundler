@@ -1,6 +1,7 @@
 package modules
 
 import (
+	"github.com/go-logr/logr"
 	"math/big"
 	"sync"
 
@@ -21,6 +22,7 @@ type BatchHandlerCtx struct {
 	Tip            *big.Int
 	GasPrice       *big.Int
 	Data           map[string]any
+	Logger         *logr.Logger
 }
 
 // NewBatchHandlerContext creates a new BatchHandlerCtx using a copy of the given batch.
@@ -31,6 +33,7 @@ func NewBatchHandlerContext(
 	baseFee *big.Int,
 	tip *big.Int,
 	gasPrice *big.Int,
+	logger *logr.Logger,
 ) *BatchHandlerCtx {
 	var copy []*userop.UserOperation
 	copy = append(copy, batch...)
@@ -44,6 +47,7 @@ func NewBatchHandlerContext(
 		Tip:            tip,
 		GasPrice:       gasPrice,
 		Data:           make(map[string]any),
+		Logger:         logger,
 	}
 }
 
@@ -62,6 +66,8 @@ func (c *BatchHandlerCtx) MarkOpIndexForRemoval(index int) {
 	if op == nil {
 		return
 	}
+
+	c.Logger.Info("move op to pending removal: %s", op.GetUserOpHash(c.EntryPoint, c.ChainID))
 
 	c.Batch = batch
 	c.PendingRemoval = append(c.PendingRemoval, op)

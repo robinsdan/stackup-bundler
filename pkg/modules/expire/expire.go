@@ -1,6 +1,7 @@
 package expire
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -31,6 +32,7 @@ func (e *ExpireHandler) DropExpired() modules.BatchHandlerFunc {
 			if seenAt, ok := e.seenAt[hash]; !ok {
 				e.seenAt[hash] = time.Now()
 			} else if seenAt.Add(e.ttl).Before(time.Now()) {
+				ctx.Logger.Info(fmt.Sprintf("drop expired user op: %s", hash.String()))
 				ctx.MarkOpIndexForRemoval(i)
 			}
 		}

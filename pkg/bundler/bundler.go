@@ -155,7 +155,7 @@ func (i *Bundler) Process(ep common.Address) (*modules.BatchHandlerCtx, error) {
 	}
 
 	// Create context and execute modules.
-	ctx := modules.NewBatchHandlerContext(batch, ep, i.chainID, bf, gt, gp)
+	ctx := modules.NewBatchHandlerContext(batch, ep, i.chainID, bf, gt, gp, &l)
 	if err := i.batchHandler(ctx); err != nil {
 		l.Error(err, "bundler run error")
 		return nil, err

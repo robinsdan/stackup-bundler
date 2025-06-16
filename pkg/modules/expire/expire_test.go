@@ -29,6 +29,7 @@ func TestDropExpired(t *testing.T) {
 		nil,
 		nil,
 		nil,
+		nil,
 	)
 	if err := exp.DropExpired()(ctx); err != nil {
 		t.Fatalf("got %v, want nil", err)

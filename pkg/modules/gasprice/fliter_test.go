@@ -37,6 +37,7 @@ func TestFilterUnderpricedDynamic(t *testing.T) {
 		bf,
 		tip,
 		big.NewInt(10),
+		nil,
 	)
 	if err := gasprice.FilterUnderpriced()(ctx); err != nil {
 		t.Fatalf("got %v, want nil", err)
@@ -73,6 +74,7 @@ func TestFilterUnderpricedGasPrice(t *testing.T) {
 		nil,
 		nil,
 		big.NewInt(5),
+		nil,
 	)
 	if err := gasprice.FilterUnderpriced()(ctx); err != nil {
 		t.Fatalf("got %v, want nil", err)

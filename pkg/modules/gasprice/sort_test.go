@@ -37,6 +37,7 @@ func TestSortByGasPriceBaseDynamic(t *testing.T) {
 		bf,
 		tip,
 		big.NewInt(6),
+		nil,
 	)
 	if err := gasprice.SortByGasPrice()(ctx); err != nil {
 		t.Fatalf("got %v, want nil", err)
@@ -75,6 +76,7 @@ func TestSortByGasPriceLegacy(t *testing.T) {
 		nil,
 		nil,
 		big.NewInt(4),
+		nil,
 	)
 	if err := gasprice.SortByGasPrice()(ctx); err != nil {
 		t.Fatalf("got %v, want nil", err)
