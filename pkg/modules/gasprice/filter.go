@@ -27,7 +27,7 @@ func FilterUnderpriced() modules.BatchHandlerFunc {
 				if op.MaxFeePerGas.Cmp(ctx.GasPrice) >= 0 {
 					b = append(b, op)
 				} else {
-					underPriced = append(underPriced, op.GetUserOpHash(ctx.EntryPoint, ctx.ChainID).String())
+					underPriced = append(underPriced, fmt.Sprintf("(%s, %s, %s)", op.GetUserOpHash(ctx.EntryPoint, ctx.ChainID).String(), op.MaxFeePerGas.String(), ctx.GasPrice.String()))
 				}
 			}
 		}
