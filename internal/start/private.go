@@ -3,6 +3,7 @@ package start
 import (
 	"context"
 	"fmt"
+	"github.com/stackup-wallet/stackup-bundler/pkg/entrypoint"
 	"log"
 	"net/http"
 
@@ -128,6 +129,7 @@ func PrivateMode() {
 	paymaster := paymaster.New(db)
 
 	// Init Client
+	entrypoint.InitLogger()
 	c := client.New(mem, ov, chain, conf.SupportedEntryPoints)
 	c.SetGetUserOpReceiptFunc(client.GetUserOpReceiptWithEthClient(eth))
 	c.SetGetGasEstimateFunc(

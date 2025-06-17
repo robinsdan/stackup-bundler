@@ -40,6 +40,7 @@ func SimulateHandleOp(in *SimulateInput) (*reverts.ExecutionResultRevert, error)
 
 	sim, simErr := reverts.NewExecutionResult(err)
 	if simErr != nil {
+		entrypoint.Logger.Error(simErr, "simulate handle op error")
 		fo, foErr := reverts.NewFailedOp(err)
 		if foErr != nil {
 			if err != nil {

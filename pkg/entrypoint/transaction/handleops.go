@@ -4,6 +4,7 @@ import (
 	bytesPkg "bytes"
 	"context"
 	"errors"
+	"fmt"
 	"math"
 	"math/big"
 	"time"
@@ -82,6 +83,7 @@ func EstimateHandleOpsGas(opts *Opts) (gas uint64, revert *reverts.FailedOpRever
 		AccessList: tx.AccessList(),
 	})
 	if err != nil {
+		entrypoint.Logger.Error(err, fmt.Sprintf("estimate gas error, from:%s, price:%d, gas:%d", opts.EOA.Address.String(), tx.GasPrice(), tx.Gas()))
 		revert, err := reverts.NewFailedOp(err)
 		if err != nil {
 			return 0, nil, err
