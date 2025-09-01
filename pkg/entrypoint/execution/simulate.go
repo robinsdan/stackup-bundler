@@ -6,6 +6,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/robinsdan/sweet"
 	"github.com/stackup-wallet/stackup-bundler/pkg/entrypoint"
 	"github.com/stackup-wallet/stackup-bundler/pkg/entrypoint/reverts"
 	"github.com/stackup-wallet/stackup-bundler/pkg/errors"
@@ -40,7 +41,7 @@ func SimulateHandleOp(in *SimulateInput) (*reverts.ExecutionResultRevert, error)
 
 	sim, simErr := reverts.NewExecutionResult(err)
 	if simErr != nil {
-		entrypoint.Logger.Error(simErr, "simulate handle op error")
+		entrypoint.Logger.Error(simErr, "simulate handle op error", "user op", sweet.JsonStr(in.Op))
 		fo, foErr := reverts.NewFailedOp(err)
 		if foErr != nil {
 			if err != nil {

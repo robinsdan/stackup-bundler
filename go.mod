@@ -1,6 +1,8 @@
 module github.com/stackup-wallet/stackup-bundler
 
-go 1.19
+go 1.22.0
+
+toolchain go1.24.0
 
 require (
 	github.com/deckarep/golang-set/v2 v2.3.0
@@ -16,6 +18,7 @@ require (
 	github.com/metachris/flashbotsrpc v0.5.0
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/puzpuzpuz/xsync/v3 v3.0.1
+	github.com/robinsdan/sweet v0.0.0-20240515095757-c9c160a95736
 	github.com/rs/zerolog v1.29.0
 	github.com/santhosh-tekuri/jsonschema/v5 v5.3.1
 	github.com/spf13/cobra v1.6.1

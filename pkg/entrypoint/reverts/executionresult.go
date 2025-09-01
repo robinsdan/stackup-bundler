@@ -8,6 +8,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/laizy/log"
 )
 
 type ExecutionResultRevert struct {
@@ -48,6 +49,7 @@ func NewExecutionResult(err error) (*ExecutionResultRevert, error) {
 	sim := executionResult()
 	revert, err := sim.Unpack(common.Hex2Bytes(data[2:]))
 	if err != nil {
+		log.Infof("unpack execution result failed, raw data:%v", data)
 		return nil, fmt.Errorf("executionResult: %s", err)
 	}
 
