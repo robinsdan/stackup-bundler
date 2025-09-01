@@ -7,6 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/laizy/log"
 	"github.com/stackup-wallet/stackup-bundler/pkg/entrypoint/execution"
 	"github.com/stackup-wallet/stackup-bundler/pkg/errors"
 	"github.com/stackup-wallet/stackup-bundler/pkg/userop"
@@ -78,6 +79,7 @@ func EstimateGas(in *EstimateInput) (verificationGas uint64, callGas uint64, err
 	r := in.MaxGasLimit.Int64()
 	f := int64(0)
 	var simErr error
+	log.Infof("estimmate gas: [%d, %d]", l, r)
 	for r-l >= fallBackBinarySearchCutoff {
 		m := (l + r) / 2
 
@@ -91,6 +93,7 @@ func EstimateGas(in *EstimateInput) (verificationGas uint64, callGas uint64, err
 			EntryPoint: in.EntryPoint,
 			Op:         simOp,
 		})
+		log.Infof("simulate: [%d, %d], limit: %d, result: %v", l, r, m, err)
 		simErr = err
 		if err == nil {
 			// VGL too high, go lower.
@@ -137,6 +140,7 @@ func EstimateGas(in *EstimateInput) (verificationGas uint64, callGas uint64, err
 		ChainID:     in.ChainID,
 		TraceFeeCap: in.Op.MaxFeePerGas,
 	})
+	log.Infof("trace: %v, err: %v", data, err)
 	if err != nil {
 		return 0, 0, err
 	}
@@ -164,6 +168,7 @@ func EstimateGas(in *EstimateInput) (verificationGas uint64, callGas uint64, err
 		Op:         simOp,
 		ChainID:    in.ChainID,
 	})
+	log.Infof("trace final: %v, err: %v", data, err)
 	if err != nil {
 		// Execution is successful but one shot tracing has failed. Fallback to binary search with an
 		// efficient range. Hitting this point could mean a contract is passing manual gas limits with a
