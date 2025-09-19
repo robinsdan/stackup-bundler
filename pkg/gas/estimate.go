@@ -76,7 +76,7 @@ func EstimateGas(in *EstimateInput) (verificationGas uint64, callGas uint64, err
 	// limit here would result in certain code paths not being executed which results in an inaccurate gas
 	// estimate.
 	l := int64(0)
-	r := in.MaxGasLimit.Int64()
+	r := min(in.MaxGasLimit.Int64(), 5000000) // ontology rpc 预执行最大是600w，这个值太大会导致Entrypoint 报INNER_OUT_OF_GAS。
 	f := int64(0)
 	var simErr error
 	log.Infof("estimmate gas: [%d, %d]", l, r)
