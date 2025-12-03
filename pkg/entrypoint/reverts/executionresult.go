@@ -43,7 +43,7 @@ func NewExecutionResult(err error) (*ExecutionResultRevert, error) {
 
 	data, ok := rpcErr.ErrorData().(string)
 	if !ok {
-		return nil, errors.New("executionResult: cannot assert type: data is not of type string")
+		return nil, fmt.Errorf("executionResult: cannot assert type: data is not of type string, type: %T, val: %v", rpcErr.ErrorData(), rpcErr.ErrorData())
 	}
 
 	sim := executionResult()
